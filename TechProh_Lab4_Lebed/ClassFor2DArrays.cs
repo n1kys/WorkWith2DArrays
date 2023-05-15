@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -57,7 +58,27 @@ namespace TechProh_Lab4_Lebed
             return array.ToString();
         }
 
+        public void AddInfoToDataGrid(ref DataGridView dgv, int[,] matrix)
+        {
+            dgv.Rows.Clear();
+            dgv.ReadOnly = true;
+            dgv.ColumnCount = size;
+            dgv.RowCount = size;
+            for(byte i = 0; 0 < dgv.ColumnCount; ++i)
+            {
+                dgv.Columns[i].Width = 30;
+                dgv.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
 
+            dgv.RowHeadersVisible = false;
+            dgv.ColumnHeadersVisible = false;
+
+            for(byte i = 0; i < size; ++i)
+            {
+                for(byte j=0;j<size;++j)
+                    dgv[i,j].Value = matrix[i,j];
+            }
+        }
 
 
     }
