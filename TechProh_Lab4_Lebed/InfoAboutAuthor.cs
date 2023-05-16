@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TechProh_Lab4_Lebed
+namespace TechProg_Lab4_Lebed
 {
     public partial class InfoAboutAuthor : Form
     {

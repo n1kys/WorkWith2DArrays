@@ -1,4 +1,4 @@
-﻿namespace TechProh_Lab4_Lebed
+﻿namespace TechProg_Lab4_Lebed
 {
     partial class WorkWithArray
     {

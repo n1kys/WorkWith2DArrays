@@ -1,4 +1,4 @@
-namespace TechProh_Lab4_Lebed
+namespace TechProg_Lab4_Lebed
 {
     public partial class Form1 : Form
     {
