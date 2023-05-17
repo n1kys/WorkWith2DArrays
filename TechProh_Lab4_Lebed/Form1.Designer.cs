@@ -28,29 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            generateButton = new Button();
             aboutAuthor = new Button();
             groupBox1 = new GroupBox();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            numericUpDown3 = new NumericUpDown();
-            numericUpDown2 = new NumericUpDown();
-            numericUpDown1 = new NumericUpDown();
+            maxUpDown3 = new NumericUpDown();
+            minUpDown2 = new NumericUpDown();
+            sizeUpDown1 = new NumericUpDown();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)maxUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)minUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)sizeUpDown1).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // generateButton
             // 
-            button1.Location = new Point(12, 130);
-            button1.Name = "button1";
-            button1.Size = new Size(108, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Generate";
-            button1.UseVisualStyleBackColor = true;
+            generateButton.Location = new Point(12, 130);
+            generateButton.Name = "generateButton";
+            generateButton.Size = new Size(108, 23);
+            generateButton.TabIndex = 0;
+            generateButton.Text = "Generate";
+            generateButton.UseVisualStyleBackColor = true;
+            generateButton.Click += generateButton_Click;
             // 
             // aboutAuthor
             // 
@@ -67,9 +68,9 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(numericUpDown3);
-            groupBox1.Controls.Add(numericUpDown2);
-            groupBox1.Controls.Add(numericUpDown1);
+            groupBox1.Controls.Add(maxUpDown3);
+            groupBox1.Controls.Add(minUpDown2);
+            groupBox1.Controls.Add(sizeUpDown1);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(222, 112);
@@ -104,26 +105,26 @@
             label1.TabIndex = 3;
             label1.Text = "Size of array";
             // 
-            // numericUpDown3
+            // maxUpDown3
             // 
-            numericUpDown3.Location = new Point(124, 80);
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(92, 23);
-            numericUpDown3.TabIndex = 2;
+            maxUpDown3.Location = new Point(124, 80);
+            maxUpDown3.Name = "maxUpDown3";
+            maxUpDown3.Size = new Size(92, 23);
+            maxUpDown3.TabIndex = 2;
             // 
-            // numericUpDown2
+            // minUpDown2
             // 
-            numericUpDown2.Location = new Point(124, 51);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(92, 23);
-            numericUpDown2.TabIndex = 1;
+            minUpDown2.Location = new Point(124, 51);
+            minUpDown2.Name = "minUpDown2";
+            minUpDown2.Size = new Size(92, 23);
+            minUpDown2.TabIndex = 1;
             // 
-            // numericUpDown1
+            // sizeUpDown1
             // 
-            numericUpDown1.Location = new Point(124, 22);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(92, 23);
-            numericUpDown1.TabIndex = 0;
+            sizeUpDown1.Location = new Point(124, 22);
+            sizeUpDown1.Name = "sizeUpDown1";
+            sizeUpDown1.Size = new Size(92, 23);
+            sizeUpDown1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -132,28 +133,28 @@
             ClientSize = new Size(244, 163);
             Controls.Add(groupBox1);
             Controls.Add(aboutAuthor);
-            Controls.Add(button1);
+            Controls.Add(generateButton);
             Name = "Form1";
             Text = "2DArraysProgram";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)maxUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)minUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)sizeUpDown1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button button1;
+        private Button generateButton;
         private Button aboutAuthor;
         private GroupBox groupBox1;
         private Label label3;
         private Label label2;
         private Label label1;
-        private NumericUpDown numericUpDown3;
-        private NumericUpDown numericUpDown2;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown maxUpDown3;
+        private NumericUpDown minUpDown2;
+        private NumericUpDown sizeUpDown1;
     }
 }

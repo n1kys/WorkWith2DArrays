@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace TechProg_Lab4_Lebed
 {
@@ -12,7 +15,7 @@ namespace TechProg_Lab4_Lebed
     {
         public int[,] matrix { get; set; }
 
-        public double[,] matrixRes { get; set; }
+        public int[,] matrixRes { get; set; }
         
         public int size { get; set; }
 
@@ -30,7 +33,7 @@ namespace TechProg_Lab4_Lebed
         public ClassFor2DArrays() { 
         }
 
-        public int[,] generate2dArray(int min, int max)
+        public int[,] generate2dArray(int min, int max, int size)
         {
             Random rnd = new Random(DateTime.Now.Millisecond);
             if (min > max) { (min, max) = (max, min); }
@@ -43,6 +46,67 @@ namespace TechProg_Lab4_Lebed
                 }
             }
             return matrix;
+        }
+
+        public List<string> FindAllElementIndexes(ref DataGridView dgv, object element)
+        {
+            List<string> indexesList = new List<string>();
+
+            for (int i = 0; i < dgv.RowCount; i++)
+            {
+                for (int j = 0; j < dgv.ColumnCount; j++)
+                {
+                    if (dgv.Rows[i].Cells[j].Value != null && dgv.Rows[i].Cells[j].Value.Equals(element))
+                    {
+                        string indicesString = $"{element}[{i}][{j}]";
+                        indexesList.Add(indicesString);
+                    }
+                }
+            }
+
+            return indexesList;
+        }
+
+        public int[,] sortArray(int[,] matrix)
+        {
+            int rowCount = matrix.GetLength(0);
+            int columnCount = matrix.GetLength(1);
+            int[,] sortedMatrix = new int[rowCount, columnCount];
+
+            for(int j = 0; j<columnCount; j++)
+            {
+                int[] column = new int[rowCount];
+                for(int i = 0; i<rowCount; i++)
+                {
+                    column[i] = matrix[i, j];
+                }
+                Array.Sort(column, (x, y) => y.CompareTo(x));
+
+                for(int i =0; i< rowCount;i++)
+                    sortedMatrix[i,j] = column[i];
+            }
+            matrixRes = sortedMatrix;
+            return matrixRes;
+        }
+
+        public int[,] multiplayOp(int[,] matrix, int valueF)
+        {
+            int rowCount = matrix.GetLength(0);
+            int h = rowCount;
+            int columnCount = matrix.GetLength(1);
+            int[,] array = new int[rowCount, columnCount];
+            Array.Copy(matrix, array, matrix.Length);
+
+            for(int i = 0; i < rowCount; i++)
+            {
+                for(int j = 0; j < columnCount; j++)
+                {
+                    if (array[i,j] % 3 == 0) { array[i, j] *= -h; }
+                    else { array[i, j] -= valueF; }
+                }
+            }
+            matrixRes = array;
+            return matrixRes;
         }
 
         public string ArrayToString()
@@ -58,13 +122,13 @@ namespace TechProg_Lab4_Lebed
             return array.ToString();
         }
 
-        public void AddInfoToDataGrid(ref DataGridView dgv, int[,] matrix)
+        public void AddInfoToDataGrid(ref DataGridView dgv, int[,] matrix, int size)
         {
             dgv.Rows.Clear();
             dgv.ReadOnly = true;
             dgv.ColumnCount = size;
             dgv.RowCount = size;
-            for(byte i = 0; 0 < dgv.ColumnCount; ++i)
+            for(byte i = 0; i < dgv.ColumnCount; ++i)
             {
                 dgv.Columns[i].Width = 30;
                 dgv.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -76,29 +140,39 @@ namespace TechProg_Lab4_Lebed
             for(byte i = 0; i < size; ++i)
             {
                 for(byte j=0;j<size;++j)
-                    dgv[i,j].Value = matrix[i,j];
+                    dgv[j, i].Value = matrix[i ,j];
             }
         }
 
-        public void AddInfoToDataGrid(ref DataGridView dgv, double[,] matrix)
+        public void Clear()
         {
-            dgv.Rows.Clear();
-            dgv.ReadOnly = true;
-            dgv.ColumnCount = size;
-            dgv.RowCount = size;
-            for (byte i = 0; 0 < dgv.ColumnCount; ++i)
+            matrix = null;
+
+        }
+
+
+        public static string SelectFolder()
+        {
+            using(FolderBrowserDialog folderDialog = new FolderBrowserDialog())
             {
-                dgv.Columns[i].Width = 30;
-                dgv.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if(folderDialog.ShowDialog() == DialogResult.OK)
+                    return folderDialog.SelectedPath;
+            }
+            return null;
+        }
+
+        public void WriteToXmlFile<T>(string filePath, T objectToWrite, bool append = false) where T: new()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
+            {
+                xmlWriterSettings.Indent = true;
+                xmlWriterSettings.IndentChars = "\n";
             }
 
-            dgv.RowHeadersVisible = false;
-            dgv.ColumnHeadersVisible = false;
-
-            for (byte i = 0; i < size; ++i)
-            {
-                for (byte j = 0; j < size; ++j)
-                    dgv[i, j].Value = matrix[i, j];
+            using (XmlWriter xmlWriter = XmlWriter.Create(filePath, xmlWriterSettings))
+            { 
+                serializer.Serialize(xmlWriter, objectToWrite);
             }
         }
 

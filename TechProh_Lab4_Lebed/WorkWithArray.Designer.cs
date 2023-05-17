@@ -32,17 +32,18 @@
             dataGridView2 = new DataGridView();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
+            resultText = new Label();
             groupBox3 = new GroupBox();
-            radioButton3 = new RadioButton();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
+            multiplyButton = new RadioButton();
+            sortButton = new RadioButton();
+            indexesButton = new RadioButton();
             groupBox4 = new GroupBox();
             button6 = new Button();
             button5 = new Button();
-            button4 = new Button();
+            clearButton = new Button();
             button3 = new Button();
             button2 = new Button();
-            button1 = new Button();
+            runButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             groupBox1.SuspendLayout();
@@ -56,9 +57,11 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(6, 22);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(340, 258);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellClick += dataGridView1_CellContentClick;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // dataGridView2
@@ -67,7 +70,7 @@
             dataGridView2.Location = new Point(6, 22);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowTemplate.Height = 25;
-            dataGridView2.Size = new Size(372, 258);
+            dataGridView2.Size = new Size(372, 240);
             dataGridView2.TabIndex = 1;
             // 
             // groupBox1
@@ -82,6 +85,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(resultText);
             groupBox2.Controls.Add(dataGridView2);
             groupBox2.Location = new Point(389, 9);
             groupBox2.Name = "groupBox2";
@@ -90,11 +94,19 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Result";
             // 
+            // resultText
+            // 
+            resultText.AutoSize = true;
+            resultText.Location = new Point(10, 273);
+            resultText.Name = "resultText";
+            resultText.Size = new Size(0, 15);
+            resultText.TabIndex = 6;
+            // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(radioButton3);
-            groupBox3.Controls.Add(radioButton2);
-            groupBox3.Controls.Add(radioButton1);
+            groupBox3.Controls.Add(multiplyButton);
+            groupBox3.Controls.Add(sortButton);
+            groupBox3.Controls.Add(indexesButton);
             groupBox3.Location = new Point(12, 313);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(353, 129);
@@ -102,47 +114,47 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Actions";
             // 
-            // radioButton3
+            // multiplyButton
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(6, 94);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(288, 19);
-            radioButton3.TabIndex = 7;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Multiply elements of the array miltiply of 3 by (-h)";
-            radioButton3.UseVisualStyleBackColor = true;
+            multiplyButton.AutoSize = true;
+            multiplyButton.Location = new Point(6, 94);
+            multiplyButton.Name = "multiplyButton";
+            multiplyButton.Size = new Size(288, 19);
+            multiplyButton.TabIndex = 7;
+            multiplyButton.TabStop = true;
+            multiplyButton.Text = "Multiply elements of the array miltiply of 3 by (-h)";
+            multiplyButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // sortButton
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(6, 61);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(337, 19);
-            radioButton2.TabIndex = 6;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Sort the elements of the array columns in descending order";
-            radioButton2.UseVisualStyleBackColor = true;
+            sortButton.AutoSize = true;
+            sortButton.Location = new Point(6, 61);
+            sortButton.Name = "sortButton";
+            sortButton.Size = new Size(337, 19);
+            sortButton.TabIndex = 6;
+            sortButton.TabStop = true;
+            sortButton.Text = "Sort the elements of the array columns in descending order";
+            sortButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // indexesButton
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(6, 26);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(152, 19);
-            radioButton1.TabIndex = 5;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Index's of the d element";
-            radioButton1.UseVisualStyleBackColor = true;
+            indexesButton.AutoSize = true;
+            indexesButton.Location = new Point(6, 26);
+            indexesButton.Name = "indexesButton";
+            indexesButton.Size = new Size(152, 19);
+            indexesButton.TabIndex = 5;
+            indexesButton.TabStop = true;
+            indexesButton.Text = "Index's of the d element";
+            indexesButton.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
             groupBox4.Controls.Add(button6);
             groupBox4.Controls.Add(button5);
-            groupBox4.Controls.Add(button4);
+            groupBox4.Controls.Add(clearButton);
             groupBox4.Controls.Add(button3);
             groupBox4.Controls.Add(button2);
-            groupBox4.Controls.Add(button1);
+            groupBox4.Controls.Add(runButton);
             groupBox4.Location = new Point(389, 313);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(390, 129);
@@ -156,7 +168,7 @@
             button6.Name = "button6";
             button6.Size = new Size(114, 35);
             button6.TabIndex = 11;
-            button6.Text = "button6";
+            button6.Text = "Write f2";
             button6.UseVisualStyleBackColor = true;
             // 
             // button5
@@ -165,17 +177,18 @@
             button5.Name = "button5";
             button5.Size = new Size(105, 35);
             button5.TabIndex = 10;
-            button5.Text = "button5";
+            button5.Text = "Write f1";
             button5.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // clearButton
             // 
-            button4.Location = new Point(6, 78);
-            button4.Name = "button4";
-            button4.Size = new Size(116, 35);
-            button4.TabIndex = 9;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
+            clearButton.Location = new Point(6, 78);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(116, 35);
+            clearButton.TabIndex = 9;
+            clearButton.Text = "Clear";
+            clearButton.UseVisualStyleBackColor = true;
+            clearButton.Click += clearButton_Click;
             // 
             // button3
             // 
@@ -183,7 +196,7 @@
             button3.Name = "button3";
             button3.Size = new Size(114, 33);
             button3.TabIndex = 8;
-            button3.Text = "button3";
+            button3.Text = "Read f2";
             button3.UseVisualStyleBackColor = true;
             // 
             // button2
@@ -192,17 +205,18 @@
             button2.Name = "button2";
             button2.Size = new Size(105, 33);
             button2.TabIndex = 7;
-            button2.Text = "button2";
+            button2.Text = "Read f1";
             button2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // runButton
             // 
-            button1.Location = new Point(6, 26);
-            button1.Name = "button1";
-            button1.Size = new Size(116, 33);
-            button1.TabIndex = 6;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            runButton.Location = new Point(6, 26);
+            runButton.Name = "runButton";
+            runButton.Size = new Size(116, 33);
+            runButton.TabIndex = 6;
+            runButton.Text = "Run";
+            runButton.UseVisualStyleBackColor = true;
+            runButton.Click += runButton_Click;
             // 
             // WorkWithArray
             // 
@@ -219,6 +233,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
@@ -232,15 +247,16 @@
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
-        private RadioButton radioButton3;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton multiplyButton;
+        private RadioButton sortButton;
+        private RadioButton indexesButton;
         private GroupBox groupBox4;
         private Button button6;
         private Button button5;
-        private Button button4;
+        private Button clearButton;
         private Button button3;
         private Button button2;
-        private Button button1;
+        private Button runButton;
+        private Label resultText;
     }
 }
