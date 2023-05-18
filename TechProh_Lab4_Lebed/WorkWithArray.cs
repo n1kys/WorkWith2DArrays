@@ -49,17 +49,79 @@ namespace TechProg_Lab4_Lebed
                 string indexes = string.Join(", ", classFor2DArrays.FindAllElementIndexes(ref dataGridView1, d));
                 resultText.Text = $"Indexes of the d element: {indexes}";
             }
-            if(sortButton.Checked)
+            if (sortButton.Checked)
             {
                 matrixRes = classFor2DArrays.sortArray(matrix);
-                classFor2DArrays.AddInfoToDataGrid(ref dataGridView2, matrixRes, size);
+                classFor2DArrays.AddInfoToDataGrid(ref dataGridView2, matrixRes, matrixRes.GetLength(0));
             }
-            if(multiplyButton.Checked)
+            if (multiplyButton.Checked)
             {
                 matrixRes = classFor2DArrays.multiplayOp(matrix, d);
-                classFor2DArrays.AddInfoToDataGrid(ref dataGridView2,matrixRes, size);
+                classFor2DArrays.AddInfoToDataGrid(ref dataGridView2, matrixRes, matrixRes.GetLength(0));
             }
         }
 
+        private void writeF1_Click(object sender, EventArgs e)
+        {
+            string selectedFolder = classFor2DArrays.SelectFolder();
+
+            if (selectedFolder != null)
+            {
+                string filePath = System.IO.Path.Combine(selectedFolder, "writeF1.xml");
+                classFor2DArrays.WriteToXmlFile(filePath, classFor2DArrays);
+                classFor2DArrays.Serialize2DArrayToFile(filePath, matrix, "\nStarted matrix", true);
+                classFor2DArrays.Serialize2DArrayToFile(filePath, classFor2DArrays.sortedMatrix, "Sorted matrix", true);
+                classFor2DArrays.Serialize2DArrayToFile(filePath, classFor2DArrays.multipliedMatrix, "multiplied matrix", true);
+                classFor2DArrays.Serialize2DArrayToFile(filePath, classFor2DArrays.matrixRes, "result matrix(last action with matrix(sort or multiplied))", true);
+                resultText.Text = "File was successfully created";
+            }
+        }
+
+        private void writeF2_Click(object sender, EventArgs e)
+        {
+            string selectedFolder = classFor2DArrays.SelectFolder();
+            if (selectedFolder != null)
+            {
+                string filePath = System.IO.Path.Combine(selectedFolder, "writeF2.xml");
+                classFor2DArrays.Serialize2DArrayToFile(filePath, matrix);
+                resultText.Text = "File was successfully created";
+            }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void readMatrixFromFile_Click(object sender, EventArgs e)
+        {
+            string filePath;
+            string matrixString;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "XML Files (*.xml)|*.xml";
+                openFileDialog.Title = "Выберите XML файл";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                matrixString = reader.ReadToEnd();
+            }
+
+            int[,] deserializedMatrix = classFor2DArrays.Deserialize2DArrayFromString(matrixString);
+            classFor2DArrays.matrix = deserializedMatrix;
+            matrix = deserializedMatrix;
+            classFor2DArrays.AddInfoToDataGrid(ref dataGridView1, classFor2DArrays.matrix, classFor2DArrays.matrix.GetLength(0));
+        }
     }
 }

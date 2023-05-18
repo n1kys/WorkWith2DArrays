@@ -38,11 +38,11 @@
             sortButton = new RadioButton();
             indexesButton = new RadioButton();
             groupBox4 = new GroupBox();
-            button6 = new Button();
-            button5 = new Button();
+            writeF2 = new Button();
+            writeF1 = new Button();
             clearButton = new Button();
-            button3 = new Button();
-            button2 = new Button();
+            backButton = new Button();
+            readMatrixFromFile = new Button();
             runButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -149,11 +149,11 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(button6);
-            groupBox4.Controls.Add(button5);
+            groupBox4.Controls.Add(writeF2);
+            groupBox4.Controls.Add(writeF1);
             groupBox4.Controls.Add(clearButton);
-            groupBox4.Controls.Add(button3);
-            groupBox4.Controls.Add(button2);
+            groupBox4.Controls.Add(backButton);
+            groupBox4.Controls.Add(readMatrixFromFile);
             groupBox4.Controls.Add(runButton);
             groupBox4.Location = new Point(389, 313);
             groupBox4.Name = "groupBox4";
@@ -162,23 +162,25 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Controls";
             // 
-            // button6
+            // writeF2
             // 
-            button6.Location = new Point(264, 78);
-            button6.Name = "button6";
-            button6.Size = new Size(114, 35);
-            button6.TabIndex = 11;
-            button6.Text = "Write f2";
-            button6.UseVisualStyleBackColor = true;
+            writeF2.Location = new Point(264, 78);
+            writeF2.Name = "writeF2";
+            writeF2.Size = new Size(114, 35);
+            writeF2.TabIndex = 11;
+            writeF2.Text = "Write f2";
+            writeF2.UseVisualStyleBackColor = true;
+            writeF2.Click += writeF2_Click;
             // 
-            // button5
+            // writeF1
             // 
-            button5.Location = new Point(138, 78);
-            button5.Name = "button5";
-            button5.Size = new Size(105, 35);
-            button5.TabIndex = 10;
-            button5.Text = "Write f1";
-            button5.UseVisualStyleBackColor = true;
+            writeF1.Location = new Point(138, 78);
+            writeF1.Name = "writeF1";
+            writeF1.Size = new Size(105, 35);
+            writeF1.TabIndex = 10;
+            writeF1.Text = "Write f1";
+            writeF1.UseVisualStyleBackColor = true;
+            writeF1.Click += writeF1_Click;
             // 
             // clearButton
             // 
@@ -190,23 +192,25 @@
             clearButton.UseVisualStyleBackColor = true;
             clearButton.Click += clearButton_Click;
             // 
-            // button3
+            // backButton
             // 
-            button3.Location = new Point(264, 26);
-            button3.Name = "button3";
-            button3.Size = new Size(114, 33);
-            button3.TabIndex = 8;
-            button3.Text = "Read f2";
-            button3.UseVisualStyleBackColor = true;
+            backButton.Location = new Point(264, 26);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(114, 33);
+            backButton.TabIndex = 8;
+            backButton.Text = "Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
             // 
-            // button2
+            // readMatrixFromFile
             // 
-            button2.Location = new Point(138, 26);
-            button2.Name = "button2";
-            button2.Size = new Size(105, 33);
-            button2.TabIndex = 7;
-            button2.Text = "Read f1";
-            button2.UseVisualStyleBackColor = true;
+            readMatrixFromFile.Location = new Point(138, 26);
+            readMatrixFromFile.Name = "readMatrixFromFile";
+            readMatrixFromFile.Size = new Size(105, 33);
+            readMatrixFromFile.TabIndex = 7;
+            readMatrixFromFile.Text = "Read f1";
+            readMatrixFromFile.UseVisualStyleBackColor = true;
+            readMatrixFromFile.Click += readMatrixFromFile_Click;
             // 
             // runButton
             // 
@@ -251,11 +255,11 @@
         private RadioButton sortButton;
         private RadioButton indexesButton;
         private GroupBox groupBox4;
-        private Button button6;
-        private Button button5;
+        private Button writeF2;
+        private Button writeF1;
         private Button clearButton;
-        private Button button3;
-        private Button button2;
+        private Button backButton;
+        private Button readMatrixFromFile;
         private Button runButton;
         private Label resultText;
     }

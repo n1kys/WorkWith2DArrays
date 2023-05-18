@@ -13,11 +13,18 @@ namespace TechProg_Lab4_Lebed
 {
     public class ClassFor2DArrays
     {
+        [XmlIgnore]
         public int[,] matrix { get; set; }
-
+        [XmlIgnore]
         public int[,] matrixRes { get; set; }
         
         public int size { get; set; }
+
+        public string Indexes { get; set; }
+        [XmlIgnore]
+        public int[,] sortedMatrix { get; set; }
+        [XmlIgnore]
+        public int[,] multipliedMatrix { get; set; }
 
         public ClassFor2DArrays(int size)
         {
@@ -45,12 +52,13 @@ namespace TechProg_Lab4_Lebed
                     matrix[i, j] = rnd.Next(min, max);
                 }
             }
+            this.matrix = matrix;
             return matrix;
         }
 
-        public List<string> FindAllElementIndexes(ref DataGridView dgv, object element)
+        public string FindAllElementIndexes(ref DataGridView dgv, object element)
         {
-            List<string> indexesList = new List<string>();
+            StringBuilder indexesString = new StringBuilder();
 
             for (int i = 0; i < dgv.RowCount; i++)
             {
@@ -59,19 +67,24 @@ namespace TechProg_Lab4_Lebed
                     if (dgv.Rows[i].Cells[j].Value != null && dgv.Rows[i].Cells[j].Value.Equals(element))
                     {
                         string indicesString = $"{element}[{i}][{j}]";
-                        indexesList.Add(indicesString);
+                        indexesString.Append(indicesString).Append(", ");
                     }
                 }
             }
 
-            return indexesList;
+            if (indexesString.Length > 0)
+            {
+                indexesString.Length--;
+            }
+            Indexes = indexesString.ToString();
+            return indexesString.ToString();
         }
 
         public int[,] sortArray(int[,] matrix)
         {
             int rowCount = matrix.GetLength(0);
             int columnCount = matrix.GetLength(1);
-            int[,] sortedMatrix = new int[rowCount, columnCount];
+            int[,] sortMatrix = new int[rowCount, columnCount];
 
             for(int j = 0; j<columnCount; j++)
             {
@@ -83,9 +96,10 @@ namespace TechProg_Lab4_Lebed
                 Array.Sort(column, (x, y) => y.CompareTo(x));
 
                 for(int i =0; i< rowCount;i++)
-                    sortedMatrix[i,j] = column[i];
+                    sortMatrix[i,j] = column[i];
             }
-            matrixRes = sortedMatrix;
+            sortedMatrix = sortMatrix;
+            matrixRes = sortMatrix;
             return matrixRes;
         }
 
@@ -105,21 +119,9 @@ namespace TechProg_Lab4_Lebed
                     else { array[i, j] -= valueF; }
                 }
             }
+            multipliedMatrix = array;
             matrixRes = array;
             return matrixRes;
-        }
-
-        public string ArrayToString()
-        {
-            StringBuilder array = new StringBuilder();
-            for (byte i = 0; i < size; i++)
-            {
-                for (byte j = 0; j < size; j++)
-                    array.Append(matrix[i,j]); array.Append(" ");
-                array.Append("-");
-                array.Append(Environment.NewLine);
-            }
-            return array.ToString();
         }
 
         public void AddInfoToDataGrid(ref DataGridView dgv, int[,] matrix, int size)
@@ -151,7 +153,7 @@ namespace TechProg_Lab4_Lebed
         }
 
 
-        public static string SelectFolder()
+        public string SelectFolder()
         {
             using(FolderBrowserDialog folderDialog = new FolderBrowserDialog())
             {
@@ -161,9 +163,9 @@ namespace TechProg_Lab4_Lebed
             return null;
         }
 
-        public void WriteToXmlFile<T>(string filePath, T objectToWrite, bool append = false) where T: new()
+        public void WriteToXmlFile(string filePath, object objectToWrite)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            XmlSerializer serializer = new XmlSerializer(typeof(ClassFor2DArrays));
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
             {
                 xmlWriterSettings.Indent = true;
@@ -176,6 +178,74 @@ namespace TechProg_Lab4_Lebed
             }
         }
 
+        public void Serialize2DArrayToFile<T>(string filePath, T[,] array, string label, bool append = false)
+        {
+            int rows = array.GetLength(0);
+            int columns = array.GetLength(1);
 
+            using (StreamWriter writer = new StreamWriter(filePath, append))
+            {
+                writer.WriteLine(label);
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        writer.Write(array[i, j]);
+
+                        if (j < columns - 1)
+                        {
+                            writer.Write(",");
+                        }
+                    }
+                    writer.WriteLine();
+                }
+                writer.WriteLine();
+            }
+        }
+
+        public void Serialize2DArrayToFile<T>(string filePath, T[,] array)
+        {
+            int rows = array.GetLength(0);
+            int columns = array.GetLength(1);
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        writer.Write(array[i, j]);
+
+                        if (j < columns - 1)
+                        {
+                            writer.Write(",");
+                        }
+                    }
+                    writer.WriteLine();
+                }
+                writer.WriteLine();
+            }
+        }
+
+        public int[,] Deserialize2DArrayFromString(string matrixString)
+        {
+            string[] rows = matrixString.Trim().Split('\n');
+            int rowCount = rows.Length;
+            int columnCount = rows[0].Split(',').Length;
+
+            int[,] matrix = new int[rowCount, columnCount];
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                string[] values = rows[i].Split(',');
+
+                for (int j = 0; j < columnCount; j++)
+                {
+                    matrix[i, j] = int.Parse(values[j]);
+                }
+            }
+
+            return matrix;
+        }
     }
 }
